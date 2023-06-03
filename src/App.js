@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 
-function App() {
+const DisplayTracker = ({ recTracker }) => <>{recTracker.join("-")}</>;
+
+const App = () => {
+  const [recommendation, setRecommendation] = useState({
+    recommend: 0,
+    notRecommend: 0,
+  });
+
+  const [recTracker, setRecTracker] = useState([]);
+
+  const increaseRecommend = () => {
+    setRecommendation({
+      ...recommendation,
+      recommend: recommendation.recommend + 1,
+    });
+    setRecTracker([...recTracker, "Y"]);
+  };
+
+  const increaseNotRecommend = () => {
+    setRecommendation({
+      ...recommendation,
+      notRecommend: recommendation.notRecommend + 1,
+    });
+    setRecTracker(recTracker.concat("N"));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>React Sticker</h1>
+      <p>Do you recommend to buy this sticker?</p>
+      <div>
+        <button onClick={increaseRecommend}>
+          <ThumbUpOffAltIcon />
+        </button>{" "}
+        {recommendation.recommend}
+      </div>
+      <div>
+        <button onClick={increaseNotRecommend}>
+          <ThumbDownOffAltIcon />
+        </button>{" "}
+        {recommendation.notRecommend}
+      </div>
+      <p>
+        Track of the recommendations: <br />
+        <DisplayTracker recTracker={recTracker} />
+      </p>
     </div>
   );
-}
+};
 
 export default App;
