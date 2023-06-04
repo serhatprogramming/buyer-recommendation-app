@@ -2,7 +2,8 @@ import { useState } from "react";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 
-const DisplayTracker = ({ recTracker }) => <>{recTracker.join("-")}</>;
+const DisplayTracker = ({ recTracker }) =>
+  recTracker.length > 0 ? <>{recTracker.join("-")}</> : <>No Recommendations</>;
 
 const App = () => {
   const [recommendation, setRecommendation] = useState({
@@ -44,10 +45,12 @@ const App = () => {
         </button>{" "}
         {recommendation.notRecommend}
       </div>
-      <p>
-        Track of the recommendations: <br />
-        <DisplayTracker recTracker={recTracker} />
-      </p>
+      {recTracker.length !== 0 && (
+        <p>
+          Track of the recommendations: <br />
+          <DisplayTracker recTracker={recTracker} />
+        </p>
+      )}
     </div>
   );
 };
